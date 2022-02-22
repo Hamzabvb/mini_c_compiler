@@ -1,9 +1,3 @@
-/*---pour rendre la grammaire factorisée à gauche
-1 A → α β1 | α β2 | ... | α βn | γ avec α <> ε
-2 A → α X | γ
-3 X → β1 | β2 | ... | βn
-
-*/
 
 Function → Type identifier (ArgList ) CompoundStmt
 
@@ -16,7 +10,7 @@ Declaration → Type IdentList ;
 
 Type → int | float
 
-IdentList → identifier IdentListEnd 			//factorisée à gauche 
+IdentList → identifier IdentListEnd 			
 IdentListEnd → , IdentList | ε
 
 Stmt → ForStmt
@@ -27,14 +21,14 @@ Stmt → ForStmt
 		| Declaration
 		| ;
 
-ForStmt → for ( Expr ; ForStmtEnd			//factorisée à gauche 
+ForStmt → for ( Expr ; ForStmtEnd			
 ForStmtEnd → Expr ; ForStmtEnd1 | ; ForStmtEnd2
 ForStmtEnd1 → Expr ) Stmt | ) Stmt
 ForStmtEnd2 → ) Stmt | Expr ) Stmt 
 
 WhileStmt → while ( Expr ) Stmt			
 
-IfStmt → if ( Expr ) Stmt IfStmtEnd		//factorisée à gauche 				
+IfStmt → if ( Expr ) Stmt IfStmtEnd						
 IfStmtEnd → else Stmt | ε
 
 CompoundStmt → { StmtList } 
@@ -46,7 +40,7 @@ Expr → identifier = Expr | Rvalue
 Rvalue → Mag NewRvalue					
 NewRvalue → Compare Mag NewRvalue | ε
 
-Compare → == | < | <= | > | >= | !=		// ne pose pas des problémes
+Compare → == | < | <= | > | >= | !=		
 
 Mag → Term NewMag						
 NewMag → + Term NewMag | - Term NewMag | ε
