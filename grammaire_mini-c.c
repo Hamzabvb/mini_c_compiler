@@ -1,6 +1,6 @@
 Function → Type identifier (ArgList ) CompoundStmt
 
-ArgList → Type identifier | ArgList , Arg   // supp production unitaire
+ArgList → Type identifier | ArgList , Arg   		
 
 Arg → Type identifier
 
@@ -18,21 +18,21 @@ Stmt → ForStmt
 		| Declaration
 		| ;
 
-ForStmt → for ( Expr ; OptExpr ; OptExpr ) Stmt
-		|for ( Expr ; ; OptExpr ) Stmt 		// supp ε-productions
-		|for ( Expr ; OptExpr ; ) Stmt
-		|for ( Expr ; ; ) Stmt
+ForStmt → for ( Expr ; Expr ; Expr ) Stmt			
+		|for ( Expr ; ; Expr ) Stmt 		
+		|for ( Expr ; Expr ; ) Stmt
+		|for ( Expr ; ; ) Stmt 
 
 
 WhileStmt → while ( Expr ) Stmt
 
-IfStmt → if ( Expr ) Stmt ElsePart
+IfStmt → if ( Expr ) Stmt 							
+		|if ( Expr ) Stmt else Stmt
 
-ElsePart → else Stmt | ε
 
-CompoundStmt → { StmtList }
+CompoundStmt → { StmtList } | { }
 
-StmtList → StmtList Stmt | ε
+StmtList → StmtList Stmt 							
 
 Expr → identifier = Expr | Rvalue
 
