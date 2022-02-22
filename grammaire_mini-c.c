@@ -1,19 +1,7 @@
-/*
-1 ORDONNER LES NON TERMINAUX A1 , A2 ,..., An ;
-2 For i : =1 To n
-3 	For j : =1 To i-1
-4 		Remplacer les productions 
-			de la forme Ai→ AjX par les productions
-5 		de la forme Ai → Y1 X | Y2 X| ... | m X
-6		avec Aj→ Y1 | Y2 | ... | Ym
-7	End
-8	Eliminer la récursivité directe
-		( immédiate ) des productions de Ai
-9 End .
-
-Function , ArgList, Arg, Declaration ,Type ,IdentList ,
-Stmt , ForStmt , WhileStmt , IfStmt , CompoundStmt ,
-StmtList , Expr , Rvalue , Compare , Mag , Term , Factor 
+/*-------------------Éliminer la récursivité à gauche immédiate ou directe
+1 Remplacer les productions de la forme A → Aω | β | δ par :
+2 A → βA' | δA'
+3 A'→ ωA' | ε
 */
 
 Function → Type identifier (ArgList ) CompoundStmt
@@ -48,18 +36,20 @@ IfStmt → if ( Expr ) Stmt
 		|if ( Expr ) Stmt else Stmt
 
 
-CompoundStmt → { StmtList } | { }
+CompoundStmt → { StmtList } 
 
-StmtList → StmtList Stmt 
+StmtList → Stmt StmtList |  ε			// supp la récursivité à gauche
+Expr → identifier = Expr | Rvalue		
 
-Expr → identifier = Expr | Rvalue
-
-Rvalue → Rvalue Compare Mag | Mag
+Rvalue → Mag NewRvalue					// supp la récursivité à gauche
+NewRvalue → Compare Mag NewRvalue | ε
 
 Compare → == | < | > | <= | >= | !=
 
-Mag → Mag + Term | Mag - Term | Term
+Mag → Term NewMag						// supp la récursivité à gauche
+NewMag → + Term NewMag | - Term NewMag | ε
 
-Term → Term * Factor | Term / Factor | Factor
+Term → Factor NewTerm					// supp la récursivité à gauche
+NewTerm → * Factor NewTerm | / Factor NewTerm | ε
 
 Factor → ( Expr ) | - Factor | + Factor | identifier | number
