@@ -6,7 +6,8 @@
 
 Function → Type identifier (ArgList ) CompoundStmt
 
-ArgList → Type identifier | ArgList , Arg   		
+ArgList → Type identifier NewArgList			// supp la récursivité à gauche
+NewArgList → , Arg NewArgList | ε
 
 Arg → Type identifier
 
