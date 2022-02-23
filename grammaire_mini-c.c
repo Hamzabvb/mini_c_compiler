@@ -34,7 +34,7 @@ CompoundStmt → { StmtList }
 
 StmtList → Stmt StmtList |  ε		
 	
-Expr → identifier ExprFol					// sup production unitaire
+Expr → identifier ExprFol					
 	| ( Expr ) NewTerm NewMag NewRvalue
 	| - Factor NewTerm NewMag NewRvalue
 	| + Factor NewTerm NewMag NewRvalue
@@ -42,7 +42,6 @@ Expr → identifier ExprFol					// sup production unitaire
 
 ExprFol → = Expr | NewTerm NewMag NewRvalue
 
-// Rvalue → Mag NewRvalue				// Sup production unitile	
 NewRvalue → Compare Mag NewRvalue | ε
 
 Compare → == | < | <= | > | >= | !=		
