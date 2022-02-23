@@ -27,7 +27,7 @@ ForStmtEnd1 → Expr ) Stmt | ) Stmt
 
 WhileStmt → while ( Expr ) Stmt			
 
-IfStmt → if ( Expr ) Stmt IfStmtEnd						
+IfStmt → if ( Expr ) { Stmt } IfStmtEnd						
 IfStmtEnd → else Stmt | ε
 
 CompoundStmt → { StmtList } 
