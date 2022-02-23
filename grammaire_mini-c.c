@@ -22,9 +22,8 @@ Stmt → ForStmt
 		| ;
 
 ForStmt → for ( Expr ; ForStmtEnd			
-ForStmtEnd → Expr ; ForStmtEnd1 | ; ForStmtEnd2
+ForStmtEnd → Expr ; ForStmtEnd1 | ; ForStmtEnd1
 ForStmtEnd1 → Expr ) Stmt | ) Stmt
-ForStmtEnd2 → ) Stmt | Expr ) Stmt 
 
 WhileStmt → while ( Expr ) Stmt			
 
@@ -35,9 +34,15 @@ CompoundStmt → { StmtList }
 
 StmtList → Stmt StmtList |  ε		
 	
-Expr → identifier = Expr | Rvalue		
+Expr → identifier ExprFol					// sup production unitaire
+	| ( Expr ) NewTerm NewMag NewRvalue
+	| - Factor NewTerm NewMag NewRvalue
+	| + Factor NewTerm NewMag NewRvalue
+	| number NewTerm NewMag NewRvalue
 
-Rvalue → Mag NewRvalue					
+ExprFol → = Expr | NewTerm NewMag NewRvalue
+
+// Rvalue → Mag NewRvalue				// Sup production unitile	
 NewRvalue → Compare Mag NewRvalue | ε
 
 Compare → == | < | <= | > | >= | !=		
